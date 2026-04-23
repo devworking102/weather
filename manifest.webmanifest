@@ -3,16 +3,25 @@
   "short_name": "Thời tiết",
   "description": "Ứng dụng dự báo thời tiết và cảnh báo thiên tai",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0f172a",
   "theme_color": "#1e3a8a",
   "lang": "vi",
+  "categories": ["weather", "utilities"],
   "icons": [
     {
-      "src": "/favicon.svg",
-      "sizes": "any",
+      "src": "/pwa-icon.svg",
+      "sizes": "192x192 512x512 any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "192x192 512x512 any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ]
 }

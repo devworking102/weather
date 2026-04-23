@@ -1,4 +1,4 @@
-const CACHE = 'weather-v1'
+const CACHE = 'weather-v2'
 const PRECACHE = ['/', '/index.html', '/favicon.svg', '/manifest.webmanifest']
 
 self.addEventListener('install', (e) => {
@@ -32,16 +32,20 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return
   const url = new URL(req.url)
 
-  // Network-first for weather API (always try fresh, fall back to cache)
+  // Stale-while-revalidate for weather/news/quakes APIs:
+  // return cache immediately (if any), update cache in background.
   if (url.hostname.includes('open-meteo.com') || url.hostname.includes('rss2json.com') || url.hostname.includes('usgs.gov')) {
     e.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone()
-          caches.open(CACHE).then((c) => c.put(req, copy))
-          return res
-        })
-        .catch(() => caches.match(req))
+      caches.open(CACHE).then(async (c) => {
+        const cached = await c.match(req)
+        const network = fetch(req)
+          .then((res) => {
+            if (res.ok) c.put(req, res.clone())
+            return res
+          })
+          .catch(() => cached)
+        return cached || network
+      })
     )
     return
   }
