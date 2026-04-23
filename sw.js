@@ -1,5 +1,14 @@
-const CACHE = 'weather-v2'
-const PRECACHE = ['/', '/index.html', '/favicon.svg', '/manifest.webmanifest']
+const CACHE = 'weather-v3'
+const PRECACHE = [
+  '/',
+  '/index.html',
+  '/favicon.svg',
+  '/pwa-icon.svg',
+  '/pwa-192.png',
+  '/pwa-512.png',
+  '/apple-touch-icon.png',
+  '/manifest.webmanifest',
+]
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)))
