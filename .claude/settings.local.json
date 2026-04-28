@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npx vue-tsc -b --noEmit 2>&1)",
+      "PowerShell(npx vue-tsc -b --noEmit; \"Exit: $LASTEXITCODE\")",
+      "PowerShell(npx vite build 2>&1 | Select-Object -Last 20; \"Exit: $LASTEXITCODE\")",
+      "Bash(yarn build *)",
+      "Bash(yarn add *)",
+      "Bash(node scripts/gen-icons.mjs)",
+      "PowerShell(yarn build 2>&1)"
+    ]
+  }
+}
